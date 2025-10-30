@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/screens/login_page.dart';
+import 'package:food_delivery_app/auth/login_or_register.dart';
 import 'package:food_delivery_app/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -15,12 +15,10 @@ void main() {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
   @override
-  Widget build(BuildContext context) {    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: LoginPage(
-        onTap: () {},
-      ),
-      theme: Provider.of<ThemeProvider>(context).themeData
-    );
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: LoginOrRegister(),
+        theme: Provider.of<ThemeProvider>(context).themeData);
   }
 }
