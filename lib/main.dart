@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/auth/login_or_register.dart';
+import 'package:food_delivery_app/model/restaurant.dart';
 import 'package:food_delivery_app/theme/theme_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      child: const MainApp(),
-    ),
+    MultiProvider(providers: [
+      //theme
+      ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      //restaurant
+      ChangeNotifierProvider(create: (context) => Restaurant()),
+    ],
+    child: const MainApp(),
+    )
   );
 }
 

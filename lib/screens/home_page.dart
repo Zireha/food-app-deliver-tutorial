@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/components/my_current_location.dart';
-import 'package:food_delivery_app/components/my_description_box.dart';
+import 'package:provider/provider.dart';
+import 'package:food_delivery_app/model/food.dart';
+import 'package:food_delivery_app/model/restaurant.dart';
 import 'package:food_delivery_app/components/my_drawer.dart';
-import 'package:food_delivery_app/components/my_sliver_app_bar.dart';
 import 'package:food_delivery_app/components/my_tab_bar.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:food_delivery_app/components/my_food_tile.dart';
+import 'package:food_delivery_app/components/my_sliver_app_bar.dart';
+import 'package:food_delivery_app/components/my_description_box.dart';
+import 'package:food_delivery_app/components/my_current_location.dart';
+
+//TODO: Dont forget to add images, it was deleted due to unforeseen circumstances
+// (He wasn't focused with his work)
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -22,7 +28,8 @@ class _HomePageState extends State<HomePage>
   void initState() {
     // TODO: implement initState
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController =
+        TabController(length: FoodCategory.values.length, vsync: this);
   }
 
   @override
@@ -30,6 +37,30 @@ class _HomePageState extends State<HomePage>
     // TODO: implement dispose
     _tabController.dispose();
     super.dispose();
+  }
+
+  //sort and return list of food items per category
+  List<Food> _filterMenuByCategory(FoodCategory category, List<Food> fullMenu) {
+    return fullMenu.where((food) => food.category == category).toList();
+  }
+
+  List<Widget> getFoodInThisCategory(List<Food> fullMenu) {
+    return FoodCategory.values.map((category) {
+      //get menu category
+      List<Food> categoryMenu = _filterMenuByCategory(category, fullMenu);
+
+      return ListView.builder(
+          padding: EdgeInsets.zero,
+          itemCount: categoryMenu.length,
+          physics: const NeverScrollableScrollPhysics(),
+          itemBuilder: (context, index) {
+            //get individual food item
+            final food = categoryMenu[index];
+
+            //return food tile
+            return MyFoodTile(food: food, onTap: () {});
+          });
+    }).toList();
   }
 
   @override
@@ -56,14 +87,10 @@ class _HomePageState extends State<HomePage>
             ),
           )
         ],
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            Text("Hiii"),
-            Text("Hiii"),
-            Text("Hiii"),
-          ]
-          ),
+        body: Consumer<Restaurant>(
+            builder: (context, restaurant, child) => TabBarView(
+                controller: _tabController,
+                children: getFoodInThisCategory(restaurant.menu))),
       ),
     );
   }
