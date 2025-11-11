@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/screens/food_page.dart';
 import 'package:provider/provider.dart';
 import 'package:food_delivery_app/model/food.dart';
 import 'package:food_delivery_app/model/restaurant.dart';
@@ -8,9 +9,6 @@ import 'package:food_delivery_app/components/my_food_tile.dart';
 import 'package:food_delivery_app/components/my_sliver_app_bar.dart';
 import 'package:food_delivery_app/components/my_description_box.dart';
 import 'package:food_delivery_app/components/my_current_location.dart';
-
-//TODO: Dont forget to add images, it was deleted due to unforeseen circumstances
-// (He wasn't focused with his work)
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -58,7 +56,14 @@ class _HomePageState extends State<HomePage>
             final food = categoryMenu[index];
 
             //return food tile
-            return MyFoodTile(food: food, onTap: () {});
+            return MyFoodTile(
+                food: food,
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => FoodPage(food: food)));
+                });
           });
     }).toList();
   }

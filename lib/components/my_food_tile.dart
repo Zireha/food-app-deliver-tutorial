@@ -13,31 +13,53 @@ class MyFoodTile extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: onTap,
-          child: Row(
-            children: [
-              // text food details
-              Expanded(
-                child: Column(
-                  children: [
-                    Text(
-                      food.name,
-                      style: GoogleFonts.montserrat(),
-                    ),
-                    Text(
-                      food.price.toString(),
-                      style: GoogleFonts.montserrat(),
-                    ),
-                    Text(
-                      food.description,
-                      style: GoogleFonts.poppins(),
-                    ),
-                  ],
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              spacing: 16,
+              children: [
+                // text food details
+                Expanded(
+                  child: Column(
+                    spacing: 4,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        food.name,
+                        style: GoogleFonts.montserrat(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Text(
+                        "Rp${food.price.toString()}",
+                        style: GoogleFonts.montserrat(
+                          color: Theme.of(context).colorScheme.inversePrimary.withAlpha(200)
+                        ),
+                      ),
+                      Text(
+                        food.description,
+                        style: GoogleFonts.poppins(fontSize: 12, color: Theme.of(context).colorScheme.inversePrimary.withAlpha(200)),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
 
-              Image.asset(food.imagePath, scale: 3)
-            ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.asset(
+                    food.imagePath,
+                    height: 120,
+                  ),
+                )
+              ],
+            ),
           ),
+        ),
+        Divider(
+          indent: 12,
+          endIndent: 12,
+          color: Theme.of(context).colorScheme.inversePrimary.withAlpha(100),
         )
       ],
     );
