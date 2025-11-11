@@ -63,9 +63,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   isObscured: true),
 
               //sign up button
-              MyButton(
-                buttonText: "Sign Up",
-                onTap: () {},
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 24),
+                child: MyButton(
+                  buttonText: "Sign Up",
+                  onTap: () {},
+                ),
               ),
 
               //have an account?

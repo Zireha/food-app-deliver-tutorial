@@ -67,9 +67,12 @@ class _LoginPageState extends State<LoginPage> {
                 isObscured: true,
               ),
               //sign in button
-              MyButton(
-                buttonText: "Sign In",
-                onTap: signIn,
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 24),
+                child: MyButton(
+                  buttonText: "Sign In",
+                  onTap: signIn,
+                ),
               ),
               //register
               Row(
