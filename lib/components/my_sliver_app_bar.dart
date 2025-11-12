@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/screens/cart_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MySliverAppBar extends StatelessWidget {
@@ -19,9 +20,10 @@ class MySliverAppBar extends StatelessWidget {
       collapsedHeight: 120,
       floating: false,
       pinned: true,
-      title: Text("Bebek Goreng Hj. Slamet", style: GoogleFonts.montserrat(
-        fontSize: 20
-      ),),
+      title: Text(
+        "Bebek Goreng Hj. Slamet",
+        style: GoogleFonts.montserrat(fontSize: 20),
+      ),
       flexibleSpace: Padding(
         padding: const EdgeInsets.only(bottom: 10.0),
         child: FlexibleSpaceBar(
@@ -37,7 +39,9 @@ class MySliverAppBar extends StatelessWidget {
       ),
       actions: [
         IconButton(
-            onPressed: () {}, icon: const Icon(Icons.shopping_cart_checkout_rounded))
+            onPressed: () => Navigator.push(
+                context, MaterialPageRoute(builder: (context) => const CartPage())),
+            icon: const Icon(Icons.shopping_cart_checkout_rounded))
       ],
     );
   }
