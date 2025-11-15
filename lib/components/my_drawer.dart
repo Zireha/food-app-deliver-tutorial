@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_drawer_tile.dart';
+import 'package:food_delivery_app/screens/login_page.dart';
 
 import '../screens/settings_page.dart';
 
@@ -47,7 +48,12 @@ class MyDrawer extends StatelessWidget {
           MyDrawerTile(
               textTile: "Log Out",
               iconTile: Icons.logout_outlined,
-              onTap: () {}),
+              onTap: () => Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => LoginPage(
+                            onTap: () {},
+                          )))),
           SizedBox(
             height: 24,
           )

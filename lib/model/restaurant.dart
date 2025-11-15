@@ -87,6 +87,9 @@ class Restaurant extends ChangeNotifier {
 
   //TODO: receipt generator
   //TODO: format double value to money
+  String _formatPrice(double price) {
+    return "${price.toStringAsFixed(2)}";
+  }
   //TODO: format list of addons to a string summary
 
   final List<Food> _menu = [
