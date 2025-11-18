@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/model/restaurant.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MyReceipt extends StatelessWidget {
   const MyReceipt({super.key});
@@ -26,11 +28,23 @@ class MyReceipt extends StatelessWidget {
                       color: Theme.of(context).colorScheme.inversePrimary),
                   borderRadius: BorderRadius.circular(8)),
               padding: const EdgeInsets.all(24),
-              child: Text("Receipt here..",
-                  style: GoogleFonts.montserrat(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.w500)),
-            )
+              child: Consumer<Restaurant>(
+                  builder: (context, restaurant, child) => Text(
+                      restaurant.displayCartReceipt(),
+                      style: GoogleFonts.montserrat(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          fontWeight: FontWeight.w500))),
+            ),
+            const SizedBox(
+              height: 24,
+            ),
+            Text(
+              "Estimated delivery time is 12:10 PM",
+              style: GoogleFonts.montserrat(
+                color: Theme.of(context).colorScheme.inversePrimary,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       ),

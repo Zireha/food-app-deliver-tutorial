@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/model/restaurant.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class MyCurrentLocation extends StatelessWidget {
   const MyCurrentLocation({super.key});
 
   void openLocationSearchBox(BuildContext context) {
+    final textController = TextEditingController();
+
     showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -14,8 +18,9 @@ class MyCurrentLocation extends StatelessWidget {
                     color: Theme.of(context).colorScheme.inversePrimary),
               ),
               content: TextField(
+                controller: textController,
                 decoration: InputDecoration(
-                    hintText: "Search address...",
+                    hintText: "Enter address...",
                     hintStyle: TextStyle(
                         color: Theme.of(context)
                             .colorScheme
@@ -36,13 +41,20 @@ class MyCurrentLocation extends StatelessWidget {
                       style: GoogleFonts.montserrat(
                           color: Theme.of(context).colorScheme.inversePrimary)),
                 ),
+
                 MaterialButton(
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () {
+                    String newAddress = textController.text;
+                    context
+                        .read<Restaurant>()
+                        .updateDeliveryAddress(newAddress);
+                    Navigator.pop(context);
+                    textController.clear();
+                  },
                   child: Text("Save",
                       style: GoogleFonts.montserrat(
                           color: Theme.of(context).colorScheme.inversePrimary,
-                          fontWeight: FontWeight.bold
-                          )),
+                          fontWeight: FontWeight.bold)),
                 )
               ],
             ));
@@ -68,11 +80,13 @@ class MyCurrentLocation extends StatelessWidget {
             child: Row(
               children: [
                 //address
-                Text(
-                  "Jl. Adi Sucipto No 69",
-                  style: GoogleFonts.poppins(
-                      color: Theme.of(context).colorScheme.inversePrimary,
-                      fontWeight: FontWeight.w500),
+                Consumer<Restaurant>(
+                  builder: (context, restaurant, child) => Text(
+                      restaurant.deliveryAddress,
+                      style: GoogleFonts.poppins(
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                          fontWeight: FontWeight.w500),
+                    ),
                 ),
                 //dropdown
                 Icon(
