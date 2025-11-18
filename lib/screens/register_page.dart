@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -17,6 +18,34 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+
+  void register() async {
+    final _authService = AuthService();
+
+    // check if password match
+    if (passwordController.text == confirmPasswordController.text) {
+      try {
+        await _authService.signUpWithEmailAndPassword(
+            emailController.text, passwordController.text);
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(e.toString()),
+          ),
+        );
+      }
+    }
+    // if doesn't match => no sign in
+    else {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Password don't match!"),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,9 +92,12 @@ class _RegisterPageState extends State<RegisterPage> {
                   isObscured: true),
 
               //sign up button
-              MyButton(
-                buttonText: "Sign Up",
-                onTap: () {},
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 24),
+                child: MyButton(
+                  buttonText: "Sign Up",
+                  onTap: register,
+                ),
               ),
 
               //have an account?

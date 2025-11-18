@@ -19,7 +19,10 @@ class MyTextfield extends StatelessWidget {
       child: TextField(
         controller: controller,
         obscureText: isObscured,
+        style: GoogleFonts.poppins(),
         decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Theme.of(context).colorScheme.inversePrimary)
           ),
@@ -28,7 +31,7 @@ class MyTextfield extends StatelessWidget {
             ),
             hintText: hintText,
             hintStyle: GoogleFonts.poppins(
-              color: Theme.of(context).colorScheme.inversePrimary.withAlpha(150)
+              color: Colors.black45
             )
           )
         ),

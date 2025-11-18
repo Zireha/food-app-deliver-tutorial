@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_textfield.dart';
+import 'package:food_delivery_app/services/auth/auth_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,8 +15,24 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
+
+  //sign in
+  void signIn() async {
+    //get instance of auth service
+    final _authService = AuthService();
+    try {
+      await _authService.signInWithEmailAndPassword(
+          emailController.text, passwordController.text);
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text(e.toString()),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +70,12 @@ class _LoginPageState extends State<LoginPage> {
                 isObscured: true,
               ),
               //sign in button
-              MyButton(
-                buttonText: "Sign In",
-                onTap: () {},
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 24),
+                child: MyButton(
+                  buttonText: "Sign In",
+                  onTap: signIn,
+                ),
               ),
               //register
               Row(

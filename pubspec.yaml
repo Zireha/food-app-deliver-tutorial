@@ -7,9 +7,15 @@ environment:
   sdk: ^3.6.1
 
 dependencies:
+  cloud_firestore: ^6.1.0
+  collection: ^1.19.0
+  firebase_auth: ^6.1.2
+  firebase_core: ^4.2.1
   flutter:
     sdk: flutter
+  flutter_credit_card: ^4.1.0
   google_fonts: ^6.3.0
+  intl: ^0.20.2
   provider: ^6.1.5+1
 
 dev_dependencies:
@@ -19,3 +25,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - lib/assets/images/burgers/
+    - lib/assets/images/desserts/
+    - lib/assets/images/drinks/
+    - lib/assets/images/shawarma/
+    - lib/assets/images/sides/
+    - lib/assets/images/
